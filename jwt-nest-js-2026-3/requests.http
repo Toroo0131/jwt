@@ -1,0 +1,54 @@
+@baseUrl = http://localhost:3000
+# Reemplaza este valor por accessToken obtenido en el login
+@token = PEGAR_TOKEN_AQUI
+
+### 1. Registrar usuario (se asigna USER automáticamente)
+POST {{baseUrl}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "ana",
+  "password": "123456"
+}
+
+### 2. Iniciar sesión
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "ana",
+  "password": "123456"
+}
+
+### 3. Consultar perfil (requiere token)
+GET {{baseUrl}}/auth/profile
+Authorization: Bearer {{token}}
+
+### 4. Listar personas (USER o ADMIN)
+GET {{baseUrl}}/people
+Authorization: Bearer {{token}}
+
+### 5. Consultar persona por id (público)
+GET {{baseUrl}}/people/1
+
+### 6. Crear persona (solo ADMIN)
+POST {{baseUrl}}/people
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Persona de prueba"
+}
+
+### 7. Actualizar persona (cualquier usuario autenticado)
+PUT {{baseUrl}}/people/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Nombre actualizado"
+}
+
+### 8. Eliminar persona (solo ADMIN)
+DELETE {{baseUrl}}/people/1
+Authorization: Bearer {{token}}
